@@ -1,0 +1,91 @@
+using System;
+
+class Robitnyk
+{
+    private string name;
+    private double zarplata;
+
+    public string Name
+    {
+        get { return name; }
+        set { name = value; }
+    }
+
+    public double Zarplata
+    {
+        get { return zarplata; }
+        set { zarplata = value; }
+    }
+
+    public Robitnyk(string name, double zarplata)
+    {
+        Name = name;
+        Zarplata = zarplata;
+    }
+
+    // перевантажуємо + скількі добавити грошей с зарплати
+    public static Robitnyk operator +(Robitnyk rob, double summa)
+    {
+        rob.Zarplata += summa;
+        return rob;
+    }
+
+    // перевантажуємо - скількі убрати грошей
+    public static Robitnyk operator -(Robitnyk rob, double summa)
+    {
+        rob.Zarplata -= summa;
+        return rob;
+    }
+
+    // Перевантажуємо == чи рівні зарплати
+    public static bool operator ==(Robitnyk rob1, Robitnyk rob2)
+    {
+        return rob1.Zarplata == rob2.Zarplata;
+    }
+
+    // Перевантажуємо!= (пара к перевантаженню ==) чи НЕ рівні зарплати
+    public static bool operator !=(Robitnyk rob1, Robitnyk rob2)
+    {
+        return rob1.Zarplata != rob2.Zarplata;
+    }
+
+    // Перевантажуємо < чи перша меньша другої type:bool
+    public static bool operator <(Robitnyk rob1, Robitnyk rob2)
+    {
+        return rob1.Zarplata < rob2.Zarplata;
+    }
+
+    // Перевантажуємо >(пара к перевантаженню <) чи перша більша другої type:bool
+    public static bool operator >(Robitnyk rob1, Robitnyk rob2)
+    {
+        return rob1.Zarplata > rob2.Zarplata;
+    }
+}
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        //1 Завдання
+        Console.WriteLine($"==============1==============\n");
+
+        // Створення двох працівників
+        Robitnyk rob1 = new Robitnyk("Василь", 3000);
+        Robitnyk rob2 = new Robitnyk("Петро", 3500);
+
+        // Перевірка перевантажених операторів
+        Console.WriteLine($"Зарплата {rob1.Name}: {rob1.Zarplata}");
+        Console.WriteLine($"Зарплата {rob2.Name}: {rob2.Zarplata}\n");
+
+        rob1 += 500; // першому працівнику + 500
+        rob2 -= 200; // другому працівнику - 200
+
+        Console.WriteLine($"Зарплата {rob1.Name} пiсля збiльшення: {rob1.Zarplata}");
+        Console.WriteLine($"Зарплата {rob2.Name} пiсля зменшення: {rob2.Zarplata}\n");
+
+        Console.WriteLine($"Зарплати рiвнi? {(rob1 == rob2)}");
+        Console.WriteLine($"Зарплата {rob1.Name} менша за зарплату {rob2.Name}? {(rob1 < rob2)}");
+        Console.WriteLine($"Зарплата {rob1.Name} бiльша за зарплату {rob2.Name}? {(rob1 > rob2)}");
+        Console.WriteLine($"Зарплати рiзнi? {(rob1 != rob2)}\n");
+    }
+}
